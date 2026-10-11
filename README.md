@@ -1,4 +1,4 @@
-# Generative Classification Methods from Scratch
+# Classification Methods from Scratch
 
 **A machine learning coursework project exploring discriminant analysis and Naive Bayes classifiers in Python.**
 
