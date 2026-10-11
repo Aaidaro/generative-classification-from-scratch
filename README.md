@@ -119,7 +119,14 @@ $$\hat\theta_{kv}=\frac{n_{kv}+\beta}{\sum_{u=1}^{V}n_{ku}+\beta V}.$$
 
 ### Evaluation
 
-$$\mathrm{Accuracy}=\frac{\#\{i:\hat y_i=y_i\}}{N},\qquad\mathrm{Precision}=\frac{TP}{TP+FP},\qquad\mathrm{Recall}=\frac{TP}{TP+FN}.$$
+$$
+\mathrm{Accuracy}=\frac{\sum_{i=1}^{N}\mathbf{1}(\hat y_i=y_i)}{N}
+$$
+
+$$
+\mathrm{Precision}=\frac{TP}{TP+FP},\qquad
+\mathrm{Recall}=\frac{TP}{TP+FN}
+$$
 
 The Gaussian Naive Bayes evaluator returns zero for precision or recall when its denominator is zero.
 
@@ -135,6 +142,50 @@ These values are transcribed from the **saved outputs in the supplied notebook**
 | Sports text NB (unsmoothed MLE) | **86.00% test accuracy** |
 | Sports text NB (smoothing $\beta\approx 0.263$–$0.295$ in the tested sweep) | **89.00% test accuracy** |
 | Sports text NB (50 training examples/class, $\beta=0.1$) | 87.00% test accuracy |
+
+### Gaussian Naive Bayes: per-class metrics
+
+| Metric | Class 1 | Class 5 |
+|---|---:|---:|
+| Precision | **95.12%** | **87.50%** |
+| Recall | **97.50%** | **77.78%** |
+
+These are the two classes for which the notebook explicitly prints precision and recall; they are not macro-averaged metrics.
+
+### Sports text classification: smoothing experiment
+
+| Additive smoothing ($\beta$) | Saved test accuracy |
+|---:|---:|
+| 0 (MLE, no smoothing) | 86% |
+| 0.01 | 87% |
+| 0.1 | 87% |
+| 0.278 | **89%** |
+| 1 | 79% |
+| 2 | 65% |
+| 5 | 55% |
+| 10 | 54% |
+
+![Test accuracy as additive smoothing varies](results/smoothing-accuracy.png)
+
+### Sports text classification: training set size
+
+| Training documents per class | Saved test accuracy |
+|---:|---:|
+| 1 | 46% |
+| 5 | 59% |
+| 10 | 75% |
+| 15 | 60% |
+| 20 | 71% |
+| 25 | 81% |
+| 30 | 81% |
+| 35 | 83% |
+| 40 | 84% |
+| 45 | **88%** |
+| 50 | 87% |
+
+![Test accuracy by number of training documents per class](results/training-size-accuracy.png)
+
+The plots above are extracted from saved notebook outputs, not newly generated or independently verified runs.
 
 The saved experiments suggest that moderate smoothing can improve accuracy in this particular test set. The training-set-size experiment varies from 1 to 50 observations per class; results are not strictly monotonic. These are exploratory results on a fixed split, not a cross-validated generalization estimate.
 
